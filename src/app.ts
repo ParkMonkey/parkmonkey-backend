@@ -8,6 +8,10 @@ import path from 'path';
 const app = fastify();
 
 app.register(fastifyAutoload, {
+	dir: path.join(__dirname, 'plugins'),
+});
+
+app.register(fastifyAutoload, {
 	dir: path.join(__dirname, 'routes'),
 	dirNameRoutePrefix: false,
 });

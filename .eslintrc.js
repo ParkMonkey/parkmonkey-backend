@@ -10,17 +10,19 @@ module.exports = {
 		'prettier',
 	],
 	plugins: ['@typescript-eslint', 'simple-import-sort', 'import', 'unicorn'],
+	parser: '@typescript-eslint/parser',
+	overrides: [
+		{
+			files: ['src/routes/**/*.ts', 'src/plugins/**/*.ts'],
+			rules: {
+				'import/no-default-export': 'off',
+			},
+		},
+	],
 	rules: {
 		'import/no-default-export': 'error',
 		'import/prefer-default-export': 'off',
-		'import/extensions': [
-			'error',
-			'ignorePackages',
-			{
-				js: 'never',
-				ts: 'never',
-			},
-		],
+		'import/extensions': 'never',
 		'simple-import-sort/imports': 'error',
 		'simple-import-sort/exports': 'error',
 		'unicorn/prefer-module': 'off',
@@ -30,5 +32,6 @@ module.exports = {
 		'unicorn/consistent-function-scoping': 'off',
 		'unicorn/no-useless-undefined': 'off',
 		'unicorn/filename-case': ['error', { case: 'kebabCase' }],
+		'@typescript-eslint/explicit-module-boundary-types': 'off',
 	},
 };
