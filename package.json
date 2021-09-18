@@ -1,0 +1,32 @@
+{
+	"name": "parkmonkey-backend",
+	"version": "1.0.0",
+	"description": "Backend for ParkMonkey",
+	"main": "src/app.ts",
+	"repository": "git@github.com:ParkMonkey/parkmonkey-backend.git",
+	"license": "MIT",
+	"private": true,
+	"scripts": {
+		"dev": "ts-node-dev --respawn --transpile-only --exit-child src/app.ts"
+	},
+	"dependencies": {
+		"dotenv": "^10.0.0",
+		"fastify": "^3.21.3",
+		"fastify-autoload": "^3.9.0",
+		"tsconfig-paths": "^3.11.0"
+	},
+	"devDependencies": {
+		"@types/node": "^16.9.2",
+		"@typescript-eslint/eslint-plugin": "^4.31.1",
+		"@typescript-eslint/parser": "^4.31.1",
+		"eslint": "^7.32.0",
+		"eslint-config-airbnb-base": "^14.2.1",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-import": "^2.24.2",
+		"eslint-plugin-simple-import-sort": "^7.0.0",
+		"eslint-plugin-unicorn": "^36.0.0",
+		"prettier": "^2.4.1",
+		"ts-node-dev": "^1.1.8",
+		"typescript": "^4.4.3"
+	}
+}
