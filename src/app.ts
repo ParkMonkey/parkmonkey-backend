@@ -16,7 +16,7 @@ app.register(fastifyAutoload, {
 	dirNameRoutePrefix: false,
 });
 
-app.listen(5000, (error, address) => {
+app.listen(process.env.PORT || 5000, (error, address) => {
 	if (error) {
 		// eslint-disable-next-line no-console
 		console.error(error);
