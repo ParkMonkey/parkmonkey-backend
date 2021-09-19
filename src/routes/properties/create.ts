@@ -3,7 +3,8 @@ import type { FastifyInstance } from 'fastify';
 import { StatusCodes } from 'http-status-codes';
 
 type CreatePropertyProperties = {
-	address: string;
+	address: string; // Address of the house/property
+	maximumVehicles: number; // Maximum number of vehicles that would fit in the driveway
 };
 
 export default async function createPropertyRoute(app: FastifyInstance) {
@@ -12,7 +13,13 @@ export default async function createPropertyRoute(app: FastifyInstance) {
 		{ preValidation: app.authenticate },
 		async (request, reply) => {
 			if (!request.user) throw new Error('User not authenticated');
-			const { address } = request.body as CreatePropertyProperties;
+			const { address, maximumVehicles } =
+				request.body as CreatePropertyProperties;
+			if (!address || !maximumVehicles) {
+				reply
+					.status(StatusCodes.BAD_REQUEST)
+					.send({ error: 'One or more required fields is empty.' });
+			}
 			if (process.env.GEOAPIFY_KEY) {
 				const response = await axios.get(
 					'https://api.geoapify.com/v1/geocode/search',
@@ -34,6 +41,7 @@ export default async function createPropertyRoute(app: FastifyInstance) {
 							address: formattedAddress,
 							latitude,
 							longitude,
+							maximumVehicles,
 							ownerId: request.user?.id,
 						},
 					});

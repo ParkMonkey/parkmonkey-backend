@@ -11,12 +11,13 @@ generator client {
 }
 
 model User {
-  id           Int           @id @default(autoincrement())
-  email        String        @unique
-  username     String        @unique
-  passwordHash String
-  session      UserSession[]
-  ownedHouses  Property[]
+  id            Int            @id @default(autoincrement())
+  email         String         @unique
+  username      String         @unique
+  passwordHash  String
+  session       UserSession[]
+  ownedHouses   Property[]
+  activeRentals ActiveRental[]
 }
 
 model UserSession {
@@ -27,13 +28,25 @@ model UserSession {
 }
 
 model Property {
-  id        Int     @id @default(autoincrement())
-  address   String  @unique
-  longitude Float
-  latitude  Float
-  verified  Boolean @default(false)
-  owner     User    @relation(fields: [ownerId], references: [id])
-  ownerId   Int
+  id              Int            @id @default(autoincrement())
+  address         String         @unique
+  longitude       Float
+  latitude        Float
+  verified        Boolean        @default(false)
+  owner           User           @relation(fields: [ownerId], references: [id])
+  ownerId         Int
+  maximumVehicles Int
+  activeRentals   ActiveRental[]
 
   @@unique([longitude, latitude])
+}
+
+model ActiveRental {
+  id         Int      @id @default(autoincrement())
+  property   Property @relation(fields: [propertyId], references: [id])
+  propertyId Int
+  renter     User     @relation(fields: [renterId], references: [id])
+  renterId   Int
+
+  @@unique([propertyId, renterId])
 }
